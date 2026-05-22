@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klient Onboarding – BuiltByBorch Coaching</title>
+  <meta name="description" content="Udfyld dit klient onboarding-spørgeskema til BuiltByBorch Coaching. Dine svar danner grundlaget for din skræddersyede trænings- og kostplan." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --royal: #2155CD;
+      --royal-light: #3B6FE8;
+      --royal-dark: #1740A8;
+      --royal-glow: rgba(33, 85, 205, 0.25);
+      --black: #000000;
+      --dark: #0A0A0A;
+      --dark2: #111111;
+      --dark3: #1A1A1A;
+      --dark4: #222222;
+      --border: #2A2A2A;
+      --border-active: #2155CD;
+      --text: #F0F0F0;
+      --text-muted: #888888;
+      --text-label: #CCCCCC;
+      --success: #22C55E;
+      --error: #EF4444;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.5);
+      --shadow-blue: 0 4px 24px rgba(33,85,205,0.3);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .logo span { color: var(--royal-light); }
+
+    .header-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--royal-light);
+      background: rgba(33,85,205,0.12);
+      border: 1px solid rgba(33,85,205,0.3);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 140px 24px 60px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--royal-light);
+      background: rgba(33,85,205,0.1);
+      border: 1px solid rgba(33,85,205,0.25);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--royal-light), #6FA3FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── PROGRESS ── */
+    .progress-wrap {
+      max-width: 760px;
+      margin: 0 auto 12px;
+      padding: 0 24px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .progress-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .progress-steps {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--royal-light);
+    }
+
+    .progress-bar-track {
+      height: 4px;
+      background: var(--dark3);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--royal-dark), var(--royal-light));
+      border-radius: 100px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 14.28%;
+    }
+
+    .step-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .step-dot {
+      width: 8px; height: 8px;
+      border-radius: 100%;
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+      cursor: default;
+    }
+
+    .step-dot.active {
+      background: var(--royal);
+      border-color: var(--royal-light);
+      transform: scale(1.3);
+    }
+
+    .step-dot.done {
+      background: var(--royal-dark);
+      border-color: var(--royal);
+    }
+
+    /* ── FORM CARD ── */
+    .form-container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .step-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .step-card.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-head {
+      margin-bottom: 36px;
+    }
+
+    .step-number {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--royal-light);
+      margin-bottom: 8px;
+    }
+
+    .step-head h2 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .step-head p {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 540px;
+    }
+
+    /* ── FIELDS ── */
+    .field-group {
+      display: grid;
+      gap: 20px;
+    }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-label);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .field label .required {
+      color: var(--royal-light);
+      font-size: 14px;
+    }
+
+    .field label .tooltip {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="tel"],
+    select,
+    textarea {
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      width: 100%;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input::placeholder, textarea::placeholder { color: var(--text-muted); }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--royal);
+      background: var(--dark4);
+      box-shadow: 0 0 0 3px var(--royal-glow);
+    }
+
+    select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+
+    select option { background: var(--dark3); }
+
+    textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+    /* ── RADIO / CHECK GRID ── */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .options-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .options-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    @media (max-width: 560px) {
+      .options-grid.cols-2, .options-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .option-btn {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .option-btn input {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+
+    .option-btn span {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-label);
+      transition: all 0.2s;
+      cursor: pointer;
+      min-height: 48px;
+    }
+
+    .option-btn span .icon {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .option-btn input:checked + span,
+    .option-btn span:hover {
+      border-color: var(--royal);
+      background: rgba(33,85,205,0.12);
+      color: #fff;
+    }
+
+    .option-btn input:checked + span {
+      box-shadow: 0 0 0 1px var(--royal);
+    }
+
+    /* ── SCALE SLIDER ── */
+    .scale-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .scale-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--dark3);
+      border-radius: 100px;
+      border: none;
+      outline: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 100%;
+      background: var(--royal);
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(33,85,205,0.5);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+    .scale-value {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--royal-light);
+      letter-spacing: -1px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--royal-light);
+      margin-bottom: 16px;
+    }
+
+    /* ── VALIDATION ── */
+    .field.error input,
+    .field.error select,
+    .field.error textarea {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+    }
+
+    .field-error-msg {
+      font-size: 12px;
+      color: var(--error);
+      display: none;
+    }
+
+    .field.error .field-error-msg { display: block; }
+
+    /* ── NAVIGATION ── */
+    .form-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      gap: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--royal);
+      color: #fff;
+      box-shadow: var(--shadow-blue);
+    }
+
+    .btn-primary:hover {
+      background: var(--royal-light);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 32px rgba(33,85,205,0.4);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: #444;
+      background: var(--dark3);
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--royal), var(--royal-light));
+      color: #fff;
+      padding: 16px 40px;
+      font-size: 15px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-blue);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(33,85,205,0.5);
+    }
+
+    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* ── SUCCESS ── */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 80px 24px 120px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .success-screen.active { display: block; animation: fadeIn 0.5s ease; }
+
+    .success-icon {
+      width: 80px; height: 80px;
+      background: rgba(33,85,205,0.15);
+      border: 2px solid var(--royal);
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 32px;
+    }
+
+    .success-screen h2 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .success-screen p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .site-footer strong { color: var(--text-label); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .site-header { padding: 14px 20px; }
+      .step-card { padding: 28px 20px; }
+      .form-nav { flex-direction: column-reverse; }
+      .form-nav .btn { width: 100%; justify-content: center; }
+    }
+
+    /* Highlight required hint */
+    .required-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .required-note span { color: var(--royal-light); }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">Built<span>By</span>Borch</div>
+  <div class="header-badge">Klient Onboarding</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">BuiltByBorch Coaching</div>
+  <h1>Din personlige <em>trænings- &amp; kostplan</em> starter her</h1>
+  <p>Udfyld spørgeskemaet nedenfor. Dine svar giver mig alt hvad jeg skal bruge for at skræddersy en 100&nbsp;% personlig plan til dig.</p>
+</section>
+
+<!-- PROGRESS -->
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-header">
+    <span class="progress-label" id="stepLabel">Trin 1 af 7 — Personlige oplysninger</span>
+    <span class="progress-steps" id="stepCounter">1 / 7</span>
+  </div>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+  <div class="step-dots" id="stepDots"></div>
+</div>
+
+<!-- FORM -->
+<div class="form-container">
+<form id="onboardingForm" action="https://formspree.io/f/xkgwaqnb" method="POST" novalidate>
+
+  <!-- ══════════════════════════════
+       STEP 1 — PERSONLIGE OPLYSNINGER
+  ══════════════════════════════ -->
+  <div class="step-card active" id="step-1">
+    <div class="step-head">
+      <div class="step-number">Trin 1 af 7</div>
+      <h2>Personlige oplysninger</h2>
+      <p>Grundlæggende info om dig, så jeg kan personalisere din plan fra dag ét.</p>
+    </div>
+
+    <p class="required-note"><span>*</span> Markerer obligatoriske felter</p>
+
+    <div class="field-group">
+      <div class="field-row">
+        <div class="field" id="f-name">
+          <label>Fulde navn <span class="required">*</span></label>
+          <input type="text" name="Fulde navn" placeholder="Fx Oliver Borch" required />
+          <span class="field-error-msg">Udfyld venligst dit navn</span>
+        </div>
+        <div class="field" id="f-age">
+          <label>Alder <span class="required">*</span></label>
+          <input type="number" name="Alder" placeholder="Fx 28" min="14" max="80" required />
+          <span class="field-error-msg">Udfyld venligst din alder</span>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field" id="f-height">
+          <label>Højde (cm) <span class="required">*</span></label>
+          <input type="number" name="Højde (cm)" placeholder="Fx 182" min="140" max="220" required />
+          <span class="field-error-msg">Udfyld venligst din højde</span>
+        </div>
+        <div class="field" id="f-weight">
+          <label>Vægt (kg) <span class="required">*</span></label>
+          <input type="number" name="Vægt (kg)" placeholder="Fx 85" min="40" max="250" required />
+          <span class="field-error-msg">Udfyld venligst din vægt</span>
+        </div>
+      </div>
+
+      <div class="field" id="f-email">
+        <label>E-mail <span class="required">*</span></label>
+        <input type="email" name="E-mail" placeholder="din@email.dk" required />
+        <span class="field-error-msg">Udfyld venligst en gyldig e-mail</span>
+      </div>
+
+      <div class="field">
+        <label>Telefonnummer</label>
+        <input type="tel" name="Telefonnummer" placeholder="+45 XX XX XX XX" />
+      </div>
+
+      <div class="field" id="f-job">
+        <label>Erhverv / daglig aktivitet <span class="required">*</span></label>
+        <input type="text" name="Erhverv" placeholder="Fx kontoransvarlig, håndværker, studerende..." required />
+        <span class="field-error-msg">Udfyld venligst dit erhverv</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Civilstatus</label>
+          <select name="Civilstatus">
+            <option value="">Vælg...</option>
+            <option>Single</option>
+            <option>I et forhold</option>
+            <option>Gift / samboende</option>
+            <option>Skilt</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Har du børn?</label>
+          <select name="Børn">
+            <option value="">Vælg...</option>
+            <option>Nej</option>
+            <option>Ja – 1 barn</option>
+            <option>Ja – 2 børn</option>
+            <option>Ja – 3+ børn</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <span></span>
+      <button type="button" class="btn btn-primary" onclick="nextStep(1)">
+        Næste
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STEP 2 — MÅL & MOTIVATION
+  ══════════════════════════════ -->
+  <div class="step-card" id="step-2">
+    <div class="step-head">
+      <div class="step-number">Trin 2 af 7</div>
+      <h2>Mål &amp; Motivation</h2>
+      <p>Jo mere ærligt og detaljeret du svarer, jo bedre kan jeg hjælpe dig.</p>
+    </div>
+
+    <div class="field-group">
+
+      <div class="field" id="f-goal">
+        <label>Hvad er dit primære mål med dette forløb? <span class="required">*</span></label>
+        <div class="options-grid cols-2">
+          <label class="option-btn">
+            <input type="radio" name="Primært mål" value="Fedttab" required />
+            <span><span class="icon">🔥</span> Fedttab</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Primært mål" value="Muskelopbygning" />
+            <span><span class="icon">💪</span> Muskelopbygning</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Primært mål" value="Rekomposition (fedttab + muskler)" />
+            <span><span class="icon">⚖️</span> Rekomposition</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Primært mål" value="Øget styrke" />
+            <span><span class="icon">🏋️</span> Øget styrke</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Primært mål" value="Øget kondition / udholdenhed" />
+            <span><span class="icon">🏃</span> Kondition</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Primært mål" value="Mere energi og velvære" />
+            <span><span class="icon">⚡</span> Energi &amp; velvære</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Primært mål" value="Bedre mobilitet og bevægelighed" />
+            <span><span class="icon">🧘</span> Mobilitet</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Primært mål" value="Mere struktur og disciplin" />
+            <span><span class="icon">🎯</span> Struktur</span>
+          </label>
+        </div>
+        <span class="field-error-msg">Vælg venligst et mål</span>
+      </div>
+
+      <div class="field">
+        <label>Beskriv dit mål mere specifikt</label>
+        <textarea name="Mål beskrivelse" placeholder="Fx: Jeg vil ned fra 95 til 82 kg og se markeret ud til sommer. Jeg vil have definition på maven og større arme..." rows="3"></textarea>
+      </div>
+
+      <div class="field" id="f-why">
+        <label>Hvad er din dybeste grund til at nå dette mål? <span class="required">*</span> <span class="tooltip">— Hvad driver dig?</span></label>
+        <textarea name="Motivation" placeholder="Fx: Jeg vil have mere selvtillid, have energi til mine børn, føle mig stærk og sund resten af livet..." rows="3" required></textarea>
+        <span class="field-error-msg">Fortæl mig hvorfor det er vigtigt for dig</span>
+      </div>
+
+      <div class="field">
+        <label>Har du en konkret deadline eller begivenhed du træner op til?</label>
+        <input type="text" name="Deadline" placeholder="Fx: Bryllup i juli, ferie i august, ingen deadline..." />
+      </div>
+
+      <div class="field">
+        <label>Hvad vil gøre dette forløb til en succes for dig?</label>
+        <textarea name="Succeskriterie" placeholder="Fx: Jeg er tilfreds når jeg kan tage trøjen af på stranden uden at tænke over det..." rows="2"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Hvor vigtig er det for dig at nå dit mål? (1–10)</label>
+        <div class="scale-wrap">
+          <div class="scale-value" id="scaleMotivation">8</div>
+          <input type="range" name="Motivation score (1-10)" min="1" max="10" value="8" id="sliderMotivation"
+            oninput="document.getElementById('scaleMotivation').textContent = this.value" />
+          <div class="scale-labels"><span>1 – Ikke særlig</span><span>10 – Alt hvad jeg har</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-nav">
+      <button type="button" class="btn btn-ghost" onclick="prevStep(2)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 12l-4-4 4-4"/></svg>
+        Tilbage
+      </button>
+      <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+        Næste
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STEP 3 — HISTORIK & BLOKERINGER
+  ══════════════════════════════ -->
+  <div class="step-card" id="step-3">
+    <div class="step-head">
+      <div class="step-number">Trin 3 af 7</div>
+      <h2>Historik &amp; Blokeringer</h2>
+      <p>Hvad har du prøvet, og hvad har stoppet dig. Vær ærlig — det er her vi finder din løsning.</p>
+    </div>
+
+    <div class="field-group">
+      <div class="field">
+        <label>Har du arbejdet med en træner eller fulgt en kostplan tidligere?</label>
+        <select name="Tidligere træner / kostplan">
+          <option value="">Vælg...</option>
+          <option>Nej, aldrig</option>
+          <option>Ja, online coach</option>
+          <option>Ja, personlig træner i fitnesscenter</option>
+          <option>Ja, diætist / ernæringsvejleder</option>
+          <option>Ja, fulgt en app / bog / program</option>
+          <option>Ja, flere af ovenstående</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Hvad virkede – og hvad virkede ikke? Hvad lærte du?</label>
+        <textarea name="Tidligere erfaringer" placeholder="Fx: Lavkulhydratkost fungerede kortvarigt, men var ikke holdbart. Jeg mistede motivationen efter 3 uger fordi planen var for restriktiv..." rows="3"></textarea>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Blokeringer</div>
+
+      <div class="field" id="f-blocks">
+        <label>Hvad holder dig primært tilbage fra at nå dit mål? <span class="required">*</span> <span class="tooltip">— vælg alle der passer</span></label>
+        <div class="options-grid cols-2">
+          <label class="option-btn">
+            <input type="checkbox" name="Blokeringer" value="Tid – jeg har for travlt" />
+            <span><span class="icon">⏱️</span> For travlt</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Blokeringer" value="Motivation – svær at holde fast" />
+            <span><span class="icon">😔</span> Manglende motivation</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Blokeringer" value="Viden – ved ikke hvad jeg skal gøre" />
+            <span><span class="icon">🤷</span> Mangler viden</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Blokeringer" value="Konsistens – starter og stopper igen" />
+            <span><span class="icon">🔄</span> Mangler konsistens</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Blokeringer" value="Kost – svær at spise sundt" />
+            <span><span class="icon">🍕</span> Kost og fristelser</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Blokeringer" value="Stress – fysisk og mentalt overvældet" />
+            <span><span class="icon">😤</span> Stress</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Blokeringer" value="Omgivelser – sociale pres og dårlige vaner" />
+            <span><span class="icon">👥</span> Sociale omgivelser</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Blokeringer" value="Skader eller helbredsproblemer" />
+            <span><span class="icon">🩹</span> Skader / helbred</span>
+          </label>
+        </div>
+        <span class="field-error-msg">Vælg mindst én</span>
+      </div>
+
+      <div class="field">
+        <label>Uddyb: Hvad er din største udfordring i hverdagen?</label>
+        <textarea name="Største udfordring" placeholder="Fx: Jeg arbejder til kl. 19 og har ikke energi til at træne om aftenen. Mine kolleger bestiller altid take-away..." rows="3"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Hvilke tankemønstre eller vaner saboterer dig i dag?</label>
+        <textarea name="Saboterende vaner" placeholder="Fx: Jeg spiser godt i ugen men går helt amok i weekenden. Jeg laver undskyldninger for ikke at træne..." rows="2"></textarea>
+      </div>
+
+    </div>
+
+    <div class="form-nav">
+      <button type="button" class="btn btn-ghost" onclick="prevStep(3)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 12l-4-4 4-4"/></svg>
+        Tilbage
+      </button>
+      <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+        Næste
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STEP 4 — TRÆNING & AKTIVITET
+  ══════════════════════════════ -->
+  <div class="step-card" id="step-4">
+    <div class="step-head">
+      <div class="step-number">Trin 4 af 7</div>
+      <h2>Træning &amp; Aktivitet</h2>
+      <p>Dine træningspræferencer og dit nuværende aktivitetsniveau danner grundlaget for dit program.</p>
+    </div>
+
+    <div class="field-group">
+
+      <div class="field" id="f-training-days">
+        <label>Hvor mange dage om ugen kan du realistisk træne? <span class="required">*</span></label>
+        <div class="options-grid" style="grid-template-columns: repeat(6, 1fr);">
+          <label class="option-btn">
+            <input type="radio" name="Træningsdage per uge" value="2 dage" required />
+            <span style="justify-content:center; font-weight:700; font-size:16px;">2</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningsdage per uge" value="3 dage" />
+            <span style="justify-content:center; font-weight:700; font-size:16px;">3</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningsdage per uge" value="4 dage" />
+            <span style="justify-content:center; font-weight:700; font-size:16px;">4</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningsdage per uge" value="5 dage" />
+            <span style="justify-content:center; font-weight:700; font-size:16px;">5</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningsdage per uge" value="6 dage" />
+            <span style="justify-content:center; font-weight:700; font-size:16px;">6</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningsdage per uge" value="7 dage" />
+            <span style="justify-content:center; font-weight:700; font-size:16px;">7</span>
+          </label>
+        </div>
+        <span class="field-error-msg">Vælg antal dage</span>
+      </div>
+
+      <div class="field">
+        <label>Hvornår på dagen foretrækker du at træne?</label>
+        <div class="options-grid cols-3">
+          <label class="option-btn">
+            <input type="radio" name="Træningstidspunkt" value="Morgen (6-10)" />
+            <span><span class="icon">🌅</span> Morgen</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningstidspunkt" value="Middag (10-14)" />
+            <span><span class="icon">☀️</span> Middag</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningstidspunkt" value="Eftermiddag (14-17)" />
+            <span><span class="icon">🕑</span> Eftermiddag</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningstidspunkt" value="Aften (17-21)" />
+            <span><span class="icon">🌆</span> Aften</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningstidspunkt" value="Fleksibelt" />
+            <span><span class="icon">🔀</span> Fleksibelt</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningstidspunkt" value="Afhænger af dagen" />
+            <span><span class="icon">📅</span> Varierer</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Hvor lang tid har du til rådighed per træning?</label>
+        <select name="Tid per træning">
+          <option value="">Vælg...</option>
+          <option>Under 30 min</option>
+          <option>30–45 min</option>
+          <option>45–60 min</option>
+          <option>60–90 min</option>
+          <option>Over 90 min</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Træningstype &amp; Sted</div>
+
+      <div class="field">
+        <label>Hvilke typer træning foretrækker du? <span class="tooltip">— vælg alle du kan lide</span></label>
+        <div class="options-grid cols-2">
+          <label class="option-btn">
+            <input type="checkbox" name="Træningstype" value="Styrketræning (maskiner / stang)" />
+            <span><span class="icon">🏋️</span> Styrketræning</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Træningstype" value="Calisthenics (kropsvægt)" />
+            <span><span class="icon">🤸</span> Calisthenics</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Træningstype" value="HIIT / intervaltræning" />
+            <span><span class="icon">⚡</span> HIIT</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Træningstype" value="Cardio (løb, cykling, roning)" />
+            <span><span class="icon">🚴</span> Cardio</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Træningstype" value="Funktionel træning / crossfit" />
+            <span><span class="icon">🎽</span> Funktionel</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Træningstype" value="Sport / boldspil" />
+            <span><span class="icon">⚽</span> Sport</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Træningstype" value="Mobilitet / yoga / stretching" />
+            <span><span class="icon">🧘</span> Mobilitet</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Træningstype" value="Gåture / lette aktiviteter" />
+            <span><span class="icon">🚶</span> Gåture</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Hvor vil du primært træne?</label>
+        <div class="options-grid cols-3">
+          <label class="option-btn">
+            <input type="radio" name="Træningssted" value="Fitnesscenter" />
+            <span><span class="icon">🏟️</span> Fitnesscenter</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningssted" value="Hjemme" />
+            <span><span class="icon">🏠</span> Hjemme</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningssted" value="Udendørs" />
+            <span><span class="icon">🌳</span> Udendørs</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningssted" value="Hjemme og fitnesscenter" />
+            <span><span class="icon">🔄</span> Begge dele</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Træningssted" value="Varierer" />
+            <span><span class="icon">📍</span> Varierer</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Hvis fitnesscenter — hvilket udstyr har du adgang til?</label>
+        <textarea name="Træningsudstyr" placeholder="Fx: Har adgang til alt standard udstyr. Mangler kabel-maskiner. Træner hjemme med håndvægte og pull-up bar..." rows="2"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Hvilke muskelgrupper ønsker du ekstra fokus på?</label>
+        <div class="options-grid cols-2">
+          <label class="option-btn">
+            <input type="checkbox" name="Fokus muskelgrupper" value="Mave / core" />
+            <span><span class="icon">🎯</span> Mave / core</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Fokus muskelgrupper" value="Bryst" />
+            <span><span class="icon">💪</span> Bryst</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Fokus muskelgrupper" value="Ryg" />
+            <span><span class="icon">🦾</span> Ryg</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Fokus muskelgrupper" value="Skulder" />
+            <span><span class="icon">🏔️</span> Skulder</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Fokus muskelgrupper" value="Arme (biceps/triceps)" />
+            <span><span class="icon">💪</span> Arme</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Fokus muskelgrupper" value="Ben / glutes" />
+            <span><span class="icon">🦵</span> Ben / glutes</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Beskriv din nuværende træningsrutine</label>
+        <textarea name="Nuværende træningsrutine" placeholder="Fx: Jeg træner 2-3 gange om ugen uden fast plan. Laver bryst og arme. Ingen cardio. Ingen progressiv overload..." rows="3"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Hvad er dit nuværende daglige aktivitetsniveau?</label>
+        <select name="Dagligt aktivitetsniveau">
+          <option value="">Vælg...</option>
+          <option>Stillesiddende (kontorjob, minimal bevægelse)</option>
+          <option>Let aktivt (lidt gang, stående job)</option>
+          <option>Moderat aktivt (regelmæssig gang, lettere job)</option>
+          <option>Aktivt (fysisk job, sport etc.)</option>
+          <option>Meget aktivt (tungt fysisk arbejde, daglig træning)</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="form-nav">
+      <button type="button" class="btn btn-ghost" onclick="prevStep(4)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 12l-4-4 4-4"/></svg>
+        Tilbage
+      </button>
+      <button type="button" class="btn btn-primary" onclick="nextStep(4)">
+        Næste
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STEP 5 — KOST & ERNÆRING
+  ══════════════════════════════ -->
+  <div class="step-card" id="step-5">
+    <div class="step-head">
+      <div class="step-number">Trin 5 af 7</div>
+      <h2>Kost &amp; Ernæring</h2>
+      <p>Det her er halvdelen af din succes. Vær 100 % ærlig — der er ingen forkerte svar.</p>
+    </div>
+
+    <div class="field-group">
+
+      <div class="field">
+        <label>Beskriv hvad du typisk spiser på en normal dag</label>
+        <textarea name="Nuværende kost" placeholder="Fx: Morgenmad: ingenting. Frokost: sandwich fra 7-eleven. Aftensmad: pasta med kødsauce. Aften: chips og slik foran TV..." rows="4"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Hvor mange måltider spiser du typisk om dagen?</label>
+        <div class="options-grid" style="grid-template-columns: repeat(5, 1fr);">
+          <label class="option-btn">
+            <input type="radio" name="Måltider per dag" value="1-2 måltider" />
+            <span style="justify-content:center; font-size:13px;">1–2</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Måltider per dag" value="3 måltider" />
+            <span style="justify-content:center; font-size:13px;">3</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Måltider per dag" value="4 måltider" />
+            <span style="justify-content:center; font-size:13px;">4</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Måltider per dag" value="5 måltider" />
+            <span style="justify-content:center; font-size:13px;">5</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Måltider per dag" value="6+ måltider" />
+            <span style="justify-content:center; font-size:13px;">6+</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Tracker du kalorier / makronæringsstoffer i dag?</label>
+        <div class="options-grid cols-3">
+          <label class="option-btn">
+            <input type="radio" name="Kalorietracking" value="Ja, konsekvent" />
+            <span>Ja, altid</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Kalorietracking" value="Indimellem" />
+            <span>Indimellem</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Kalorietracking" value="Nej" />
+            <span>Nej</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Har du nogen kostpræferencer eller -restriktioner?</label>
+        <div class="options-grid cols-2">
+          <label class="option-btn">
+            <input type="checkbox" name="Kostpræferencer" value="Ingen – spiser alt" />
+            <span>Ingen restriktioner</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostpræferencer" value="Vegetar" />
+            <span><span class="icon">🥦</span> Vegetar</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostpræferencer" value="Veganer" />
+            <span><span class="icon">🌱</span> Veganer</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostpræferencer" value="Glutenfri" />
+            <span>Glutenfri</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostpræferencer" value="Laktosefri" />
+            <span>Laktosefri</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostpræferencer" value="Halal" />
+            <span>Halal</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Har du madulemper eller allergier?</label>
+        <input type="text" name="Madulemper / allergier" placeholder="Fx: laktoseintolerant, nøddeallergi, hader koriander..." />
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Vaner &amp; Udfordringer</div>
+
+      <div class="field">
+        <label>Hvad er din største kostufordring?</label>
+        <div class="options-grid cols-2">
+          <label class="option-btn">
+            <input type="checkbox" name="Kostufordringer" value="Spiser for meget / overspiser" />
+            <span>Overspiser</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostufordringer" value="Spiser for lidt / hopper måltider over" />
+            <span>Springer måltider over</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostufordringer" value="Emotionelt spisning" />
+            <span>Emotionel spisning</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostufordringer" value="For meget sukker / slik" />
+            <span>🍫 Sukker &amp; slik</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostufordringer" value="Spiser for sent om aftenen" />
+            <span>Spiser for sent</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostufordringer" value="Takeaway og restaurant" />
+            <span>🍔 Takeaway</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostufordringer" value="Drikker for meget alkohol" />
+            <span>🍺 Alkohol</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Kostufordringer" value="Ingen struktur / planlægning" />
+            <span>Ingen planlægning</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Alkohol — hvor ofte?</label>
+          <select name="Alkoholforbrug">
+            <option value="">Vælg...</option>
+            <option>Aldrig</option>
+            <option>Sjældent (et par gange om måneden)</option>
+            <option>1–2 gange om ugen</option>
+            <option>3+ gange om ugen</option>
+            <option>Dagligt</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Vand — hvor meget om dagen?</label>
+          <select name="Vandindtag">
+            <option value="">Vælg...</option>
+            <option>Under 1 liter</option>
+            <option>1–1,5 liter</option>
+            <option>1,5–2 liter</option>
+            <option>2–3 liter</option>
+            <option>Over 3 liter</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Praktiserer du intermittent faste eller har du erfaringer med det?</label>
+        <div class="options-grid cols-3">
+          <label class="option-btn">
+            <input type="radio" name="Intermittent faste" value="Ja, bruger det nu" />
+            <span>Ja, nu</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Intermittent faste" value="Har prøvet det" />
+            <span>Har prøvet</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Intermittent faste" value="Nej" />
+            <span>Nej</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Tilgængelighed &amp; Madlavning</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Hvor meget tid bruger du på madlavning om dagen?</label>
+          <select name="Tid til madlavning">
+            <option value="">Vælg...</option>
+            <option>Ingen – spiser ude eller takeaway</option>
+            <option>Under 15 min</option>
+            <option>15–30 min</option>
+            <option>30–60 min</option>
+            <option>Over 60 min</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Niveau som kok?</label>
+          <select name="Madlavningsniveau">
+            <option value="">Vælg...</option>
+            <option>Begynder – kan det basale</option>
+            <option>Mellem – klarer mig fint</option>
+            <option>Øvet – laver varieret mad</option>
+            <option>Avanceret</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Tager du kosttilskud for nuværende?</label>
+        <textarea name="Kosttilskud" placeholder="Fx: Ja, kreatin og protein shakes. Eller: Nej, ingen..." rows="2"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Hvad er dit månedlige madbudget ca.?</label>
+        <select name="Madbudget">
+          <option value="">Vælg...</option>
+          <option>Under 1.500 kr/md</option>
+          <option>1.500–2.500 kr/md</option>
+          <option>2.500–3.500 kr/md</option>
+          <option>Over 3.500 kr/md</option>
+          <option>Fleksibelt – budget ikke en begrænsning</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="form-nav">
+      <button type="button" class="btn btn-ghost" onclick="prevStep(5)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 12l-4-4 4-4"/></svg>
+        Tilbage
+      </button>
+      <button type="button" class="btn btn-primary" onclick="nextStep(5)">
+        Næste
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STEP 6 — HELBRED & LIVSSTIL
+  ══════════════════════════════ -->
+  <div class="step-card" id="step-6">
+    <div class="step-head">
+      <div class="step-number">Trin 6 af 7</div>
+      <h2>Helbred &amp; Livsstil</h2>
+      <p>Dine svar her sikrer at din plan er sikker, realistisk og tilpasset din hverdag.</p>
+    </div>
+
+    <div class="field-group">
+
+      <div class="section-label">Sundhedshistorik</div>
+
+      <div class="field">
+        <label>Har du nogen medicinske tilstande, sygdomme eller diagnoser?</label>
+        <textarea name="Medicinske tilstande" placeholder="Fx: Type 2 diabetes, forhøjet blodtryk, astma, ingen..." rows="2"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Har du skader, tidligere operationer eller kroniske smerter?</label>
+        <textarea name="Skader og operationer" placeholder="Fx: Skulderskade venstre side, tidligere menisk-operation, ondt i lænden..." rows="3"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Er der øvelser eller bevægelser du skal undgå?</label>
+        <textarea name="Øvelser der skal undgås" placeholder="Fx: Ingen flad bænkpres med stang, undgår tungere squat, løb er smertefuldt..." rows="2"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Tager du fast medicinering?</label>
+        <input type="text" name="Medicin" placeholder="Fx: Ja – blodtryksmedicin. Eller: Nej" />
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Søvn &amp; Restitution</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Hvor mange timers søvn får du typisk?</label>
+          <select name="Søvn (timer)">
+            <option value="">Vælg...</option>
+            <option>Under 5 timer</option>
+            <option>5–6 timer</option>
+            <option>6–7 timer</option>
+            <option>7–8 timer</option>
+            <option>Over 8 timer</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Søvnkvalitet generelt?</label>
+          <select name="Søvnkvalitet">
+            <option value="">Vælg...</option>
+            <option>Dårlig – vågner ofte</option>
+            <option>Middel</option>
+            <option>God</option>
+            <option>Meget god</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Stressniveau i hverdagen?</label>
+        <div class="scale-wrap">
+          <div class="scale-value" id="scaleStress">5</div>
+          <input type="range" name="Stressniveau (1-10)" min="1" max="10" value="5" id="sliderStress"
+            oninput="document.getElementById('scaleStress').textContent = this.value" />
+          <div class="scale-labels"><span>1 – Ingen stress</span><span>10 – Konstant stress</span></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Livsstil</div>
+
+      <div class="field">
+        <label>Ryger du eller bruger du nikotinprodukter?</label>
+        <div class="options-grid cols-3">
+          <label class="option-btn">
+            <input type="radio" name="Rygning / nikotin" value="Nej" />
+            <span>Nej</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Rygning / nikotin" value="Lejlighedsvis" />
+            <span>Lejlighedsvis</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Rygning / nikotin" value="Ja, dagligt" />
+            <span>Ja, dagligt</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Har du et stillesiddende arbejde (8+ timer foran skærm)?</label>
+        <div class="options-grid cols-3">
+          <label class="option-btn">
+            <input type="radio" name="Stillesiddende arbejde" value="Ja" />
+            <span>Ja</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Stillesiddende arbejde" value="Delvist" />
+            <span>Delvist</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Stillesiddende arbejde" value="Nej" />
+            <span>Nej</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Er der andre livsstilsfaktorer Oliver bør kende til?</label>
+        <textarea name="Andre livsstilsfaktorer" placeholder="Fx: Skiftende arbejdstider, meget rejseaktivitet, familiesituation der påvirker min hverdag..." rows="2"></textarea>
+      </div>
+
+    </div>
+
+    <div class="form-nav">
+      <button type="button" class="btn btn-ghost" onclick="prevStep(6)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 12l-4-4 4-4"/></svg>
+        Tilbage
+      </button>
+      <button type="button" class="btn btn-primary" onclick="nextStep(6)">
+        Næste
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STEP 7 — FORVENTNINGER & AFSLUT
+  ══════════════════════════════ -->
+  <div class="step-card" id="step-7">
+    <div class="step-head">
+      <div class="step-number">Trin 7 af 7</div>
+      <h2>Forventninger &amp; Afslutning</h2>
+      <p>Sidst — men ikke mindst. Fortæl mig hvad du forventer og hvad du ønsker at lære.</p>
+    </div>
+
+    <div class="field-group">
+
+      <div class="field">
+        <label>Hvilken form for struktur fungerer bedst for dig?</label>
+        <div class="options-grid cols-2">
+          <label class="option-btn">
+            <input type="radio" name="Foretrukken struktur" value="Fast plan – jeg vil vide præcis hvad jeg skal gøre" />
+            <span>📋 Fast detaljeret plan</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Foretrukken struktur" value="Fleksibel plan – rammer og principper" />
+            <span>🔀 Fleksible rammer</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Foretrukken struktur" value="Ugentlige opgaver og check-ins" />
+            <span>📅 Ugentlige opgaver</span>
+          </label>
+          <label class="option-btn">
+            <input type="radio" name="Foretrukken struktur" value="Kombination" />
+            <span>⚡ Kombination</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Hvad vil du gerne lære mere om i dette forløb? <span class="tooltip">— vælg alt der interesserer dig</span></label>
+        <div class="options-grid cols-2">
+          <label class="option-btn">
+            <input type="checkbox" name="Ønsker at lære" value="Ernæring og kost" />
+            <span>🥗 Ernæring &amp; kost</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Ønsker at lære" value="Intermittent faste" />
+            <span>⏳ Intermittent faste</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Ønsker at lære" value="Progressiv overload og styrketræning" />
+            <span>🏋️ Styrketræning</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Ønsker at lære" value="Konditionstræning og HIIT" />
+            <span>🏃 Kondition &amp; HIIT</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Ønsker at lære" value="Søvn og restitution" />
+            <span>😴 Søvn &amp; restitution</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Ønsker at lære" value="Mindset og vaner" />
+            <span>🧠 Mindset &amp; vaner</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Ønsker at lære" value="Kropssammensætning og fedt%" />
+            <span>📊 Kropssammensætning</span>
+          </label>
+          <label class="option-btn">
+            <input type="checkbox" name="Ønsker at lære" value="Kosttilskud og evidens" />
+            <span>💊 Kosttilskud</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Hvilke kompetencer vil du tage med dig når forløbet er slut?</label>
+        <textarea name="Kompetencer efter forløbet" placeholder="Fx: Jeg vil selv kunne lave min kostplan, kende mine makros og have et træningsprogram jeg kan køre selvstændigt..." rows="2"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Har du budget- eller tidsmæssige begrænsninger vi skal tage hensyn til?</label>
+        <textarea name="Begrænsninger" placeholder="Fx: Kan max bruge 45 min på træning. Spiser frokost på arbejdet og kan ikke mealprepe om aftenen..." rows="2"></textarea>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field" id="f-anything-else">
+        <label>Er der andet Oliver bør vide om dig inden vi starter? <span class="required">*</span></label>
+        <textarea name="Andet Oliver bør vide" placeholder="Fx: Jeg rejser 10 dage til Spanien i juni. Jeg har haft spiseforstyrrelse tidligere. Jeg er motiveret men bange for at fejle igen..." rows="4" required></textarea>
+        <span class="field-error-msg">Skriv gerne noget — selv "ingenting yderligere" er fint</span>
+      </div>
+
+      <div class="field">
+        <label>Hvordan hørte du om BuiltByBorch?</label>
+        <select name="Kilde">
+          <option value="">Vælg...</option>
+          <option>Instagram</option>
+          <option>Facebook</option>
+          <option>TikTok</option>
+          <option>Anbefaling fra en ven</option>
+          <option>Google</option>
+          <option>Podcast / YouTube</option>
+          <option>Andet</option>
+        </select>
+      </div>
+
+      <!-- Hidden metadata -->
+      <input type="hidden" name="_subject" value="Ny klient onboarding – BuiltByBorch" />
+      <input type="hidden" name="_replyto" id="hiddenEmail" />
+
+    </div>
+
+    <div class="form-nav">
+      <button type="button" class="btn btn-ghost" onclick="prevStep(7)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 12l-4-4 4-4"/></svg>
+        Tilbage
+      </button>
+      <button type="submit" class="btn btn-submit" id="submitBtn">
+        Send spørgeskema
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M8 2l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+</form>
+
+<!-- SUCCESS SCREEN -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">✓</div>
+  <h2>Tak — modtaget!</h2>
+  <p>Dine svar er sendt til Oliver. Forvent at høre fra ham inden for <strong>24&nbsp;timer</strong> med næste skridt og din personlige plan.</p>
+  <br/>
+  <p style="font-size:13px; color: #666;">— BuiltByBorch Coaching</p>
+</div>
+
+</div><!-- /form-container -->
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <strong>BuiltByBorch Coaching</strong> — Alle svar behandles fortroligt og bruges udelukkende til at skræddersy din plan.
+</footer>
+
+<script>
+  const TOTAL_STEPS = 7;
+  const stepTitles = [
+    'Personlige oplysninger',
+    'Mål & Motivation',
+    'Historik & Blokeringer',
+    'Træning & Aktivitet',
+    'Kost & Ernæring',
+    'Helbred & Livsstil',
+    'Forventninger & Afslutning'
+  ];
+
+  let currentStep = 1;
+
+  // ── BUILD DOTS ──
+  const dotsEl = document.getElementById('stepDots');
+  for (let i = 1; i <= TOTAL_STEPS; i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i === 1 ? ' active' : '');
+    d.id = 'dot-' + i;
+    dotsEl.appendChild(d);
+  }
+
+  function updateProgress(step) {
+    const pct = (step / TOTAL_STEPS) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('stepLabel').textContent = `Trin ${step} af ${TOTAL_STEPS} — ${stepTitles[step-1]}`;
+    document.getElementById('stepCounter').textContent = `${step} / ${TOTAL_STEPS}`;
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
+      const dot = document.getElementById('dot-' + i);
+      dot.className = 'step-dot' + (i === step ? ' active' : (i < step ? ' done' : ''));
+    }
+  }
+
+  function validateStep(step) {
+    let valid = true;
+    const card = document.getElementById('step-' + step);
+
+    // Required text/email/number inputs
+    card.querySelectorAll('input[required], textarea[required]').forEach(el => {
+      const field = el.closest('.field');
+      if (!el.value.trim()) {
+        if (field) field.classList.add('error');
+        valid = false;
+      } else {
+        if (field) field.classList.remove('error');
+      }
+    });
+
+    // Required radio groups
+    const radioGroups = {};
+    card.querySelectorAll('input[type="radio"][required]').forEach(r => {
+      radioGroups[r.name] = radioGroups[r.name] || [];
+      radioGroups[r.name].push(r);
+    });
+    Object.entries(radioGroups).forEach(([name, radios]) => {
+      const checked = radios.some(r => r.checked);
+      const field = radios[0].closest('.field');
+      if (!checked) {
+        if (field) field.classList.add('error');
+        valid = false;
+      } else {
+        if (field) field.classList.remove('error');
+      }
+    });
+
+    return valid;
+  }
+
+  function nextStep(from) {
+    if (!validateStep(from)) {
+      const card = document.getElementById('step-' + from);
+      const firstErr = card.querySelector('.field.error');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    showStep(from + 1);
+  }
+
+  function prevStep(from) {
+    showStep(from - 1);
+  }
+
+  function showStep(step) {
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    currentStep = step;
+    document.getElementById('step-' + currentStep).classList.add('active');
+    updateProgress(currentStep);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Sync email to hidden replyto field
+  document.querySelector('input[name="E-mail"]').addEventListener('input', function() {
+    document.getElementById('hiddenEmail').value = this.value;
+  });
+
+  // ── SUBMIT ──
+  const form = document.getElementById('onboardingForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (!validateStep(7)) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<svg style="animation:spin 1s linear infinite;width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg> Sender...';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        document.getElementById('progressWrap').style.display = 'none';
+        document.getElementById('onboardingForm').closest('.form-container').innerHTML = '';
+        document.querySelector('.hero').style.display = 'none';
+        document.getElementById('successScreen').classList.add('active');
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = 'Prøv igen — der opstod en fejl';
+        btn.style.background = 'var(--error)';
+      }
+    } catch {
+      btn.disabled = false;
+      btn.innerHTML = 'Prøv igen — ingen forbindelse';
+      btn.style.background = 'var(--error)';
+    }
+  });
+
+  updateProgress(1);
+
+  // Spin keyframe
+  const style = document.createElement('style');
+  style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+  document.head.appendChild(style);
+</script>
+</body>
+</html>
